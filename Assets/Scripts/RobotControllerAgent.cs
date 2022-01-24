@@ -2,6 +2,7 @@
 using System.Data.Common;
 using System.Linq;
 using Unity.MLAgents;
+using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -89,9 +90,9 @@ public class RobotControllerAgent : Agent
       sensor.AddObservation(StepCount / 5000);
    }
 
-   public override void OnActionReceived(float[] vectorAction)
+   public override void OnActionReceived(ActionBuffers actions)
    {
-      angles = vectorAction;
+      angles = actions.ContinuousActions.Array;
       if (trainingMode)
       {
          // Translate the floating point actions into Degrees of rotation for each axis
